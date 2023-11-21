@@ -73,7 +73,6 @@ def diagnostic_medic(voice_text):
 def generate_answer(audio):
 
 
-
     with st.spinner("Consultation in progress..."):
 
         # To save audio to a file:
@@ -139,6 +138,16 @@ if __name__ == "__main__":
     #Show Input
     audio = audiorecorder("Start recording", "Recording in progress...")
 
+    if len(audio) > 0:
+        # To play audio in frontend:
+        st.audio(audio.export().read())  
+    
+        # To save audio to a file, use pydub export method:
+        audio.export("audio.wav", format="wav")
+    
+        # To get audio properties, use pydub AudioSegment properties:
+        st.write(f"Frame rate: {audio.frame_rate}, Frame width: {audio.frame_width}, Duration: {audio.duration_seconds} seconds")
+    
     if len(audio) > 0:
 
         generate_answer(audio)
